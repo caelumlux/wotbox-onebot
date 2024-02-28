@@ -33,30 +33,32 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public String index(String username) {
         String url = "https://wotbox.ouj.com/wotbox/index.php?r=default%2Findex&pn=" + username;
-        return screenShot(indexPage, url);
+        Clip clip = new Clip(1.0, 1.56, 830, 585);
+        return screenShot(indexPage, url, clip);
     }
 
     @Override
     public String battleLog(String username) {
         String url = "https://wotbox.ouj.com/wotbox/index.php?r=default/battlelog&p=1&pn=" + username;
-        return screenShot(battleLogPage, url);
+        Clip clip = new Clip(1.0, 1.56, 870, 580);
+        return screenShot(battleLogPage, url, clip);
     }
 
 
     @Override
     public String battleStat(String username) {
         String url = "https://wotbox.ouj.com/wotbox/index.php?r=default/battlestat&pn=" + username;
-        return screenShot(battlesStatPage, url);
+        Clip clip = new Clip(1.0, 1.56, 880, 570);
+        return screenShot(battlesStatPage, url, clip);
     }
 
 
-    private String screenShot(Page page, String url) {
+    private String screenShot(Page page, String url, Clip clip) {
         String msg = "";
         try {
             page.goTo(url);
             ScreenshotOptions screenshotOptions = new ScreenshotOptions();
             //设置截图范围
-            Clip clip = new Clip(1.0, 1.56, 816, 578);
             screenshotOptions.setClip(clip);
             String screenshot = page.screenshot(screenshotOptions);
 
