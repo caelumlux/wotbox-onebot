@@ -59,7 +59,8 @@ public class MessageServiceImpl implements MessageService {
             Clip clip = new Clip(1.0, 1.56, 816, 578);
             screenshotOptions.setClip(clip);
             String screenshot = page.screenshot(screenshotOptions);
-            msg = MsgUtils.builder().img(screenshot).build();
+
+            msg = MsgUtils.builder().img("base64://" + screenshot).build();
         } catch (Exception e) {
             msg = MsgUtils.builder().text("访问出错！" + e.getMessage()).build();
         }
