@@ -9,7 +9,7 @@ log:
 
 shiro:
   chrome:
-    path: "C:\Program Files\Google\Chrome\Application\chrome.exe"
+    path: "C:/Program Files/Google/Chrome/Application/chrome.exe"
   # 注解方式编写的插件无需在插件列表（plugin-list）定义
   # 插件列表为顺序执行，如果前一个插件返回了 MESSAGE_BLOCK 将不会执行后续插件
   plugin-list:
