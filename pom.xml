@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>wotbox-onebot</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>3.2.3</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.mikuac/shiro -->
+        <dependency>
+            <groupId>com.mikuac</groupId>
+            <artifactId>shiro</artifactId>
+            <version>2.1.8</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.fanyong920</groupId>
+            <artifactId>jvppeteer</artifactId>
+            <version>1.1.5</version>
+            <exclusions>
+<!--                <exclusion>-->
+<!--                    <artifactId>Java-WebSocket</artifactId>-->
+<!--                    <groupId>org.java-websocket</groupId>-->
+<!--                </exclusion>-->
+                <exclusion>
+                    <artifactId>jackson-databind</artifactId>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>zip4j</artifactId>
+                    <groupId>net.lingala.zip4j</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>slf4j-api</artifactId>
+                    <groupId>org.slf4j</groupId>
+                </exclusion>
+<!--                <exclusion>-->
+<!--                    <artifactId>commons-compress</artifactId>-->
+<!--                    <groupId>org.apache.commons</groupId>-->
+<!--                </exclusion>-->
+            </exclusions>
+        </dependency>
+    </dependencies>
+
+</project>
