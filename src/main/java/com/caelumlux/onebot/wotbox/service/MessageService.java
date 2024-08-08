@@ -10,8 +10,4 @@ public interface MessageService {
 
     String index(String username);
 
-    String battleLog(String username);
-
-    String battleStat(String username);
-
 }
