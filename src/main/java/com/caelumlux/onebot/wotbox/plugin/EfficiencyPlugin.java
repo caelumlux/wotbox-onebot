@@ -62,7 +62,7 @@ public class EfficiencyPlugin {
     public void mine(Bot bot, AnyMessageEvent event, Matcher matcher) {
         WotUser byUserQq = wotUserService.findByUserQq(event.getUserId());
         if (byUserQq == null) {
-            bot.sendMsg(event, "请先绑定坦克世界用户名！发送 【坦克绑定】+【用户名】完成绑定！示例： 绑定 玩家123456", false);
+            bot.sendMsg(event, "请先绑定坦克世界用户名！发送 【坦克绑定】+【用户名】完成绑定！示例： 坦克绑定 玩家123456", false);
         } else {
             String msg = messageService.index(byUserQq.getWotName());
             bot.sendMsg(event, msg, false);
