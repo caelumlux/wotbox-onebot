@@ -41,6 +41,9 @@ public class WotUser {
     @Column(name = "WOT_NAME")
     private String wotName;
 
+    @Column(name = "FIGHT_NUM")
+    private Integer fightNum;
+
     @Column(name = "REMARK")
     private String remark;
 

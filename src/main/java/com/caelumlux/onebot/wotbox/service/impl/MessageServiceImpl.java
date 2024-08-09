@@ -1,5 +1,6 @@
 package com.caelumlux.onebot.wotbox.service.impl;
 
+import com.caelumlux.onebot.wotbox.entity.WotUser;
 import com.caelumlux.onebot.wotbox.model.MergeImage;
 import com.caelumlux.onebot.wotbox.service.MessageService;
 import com.caelumlux.onebot.wotbox.service.WotUserService;
@@ -22,6 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.Base64;
+import java.util.List;
 
 /**
  * @author Caelumlux
@@ -52,11 +54,9 @@ public class MessageServiceImpl implements MessageService {
         String msg;
         MergeImage image = new MergeImage();
         try {
-            String homeUrl = "https://wotapp.ouj.com/index.php?r=wx/home&pn=" + username;
-            getHome(homeUrl, image);
-            getLastFight(homeUrl, image);
-            String batlleDataUrl = "https://wotapp.ouj.com/index.php?r=wx/BattleData&pn=" + username;
-            getBatlleData(batlleDataUrl, image);
+            getHome(username, image);
+            getLastFight(username, image);
+            getBatlleData(username, image);
             String imagedMerge = mergeImage(image);
             msg = MsgUtils.builder().img("base64://" + imagedMerge).build();
         } catch (Exception e) {
@@ -65,9 +65,10 @@ public class MessageServiceImpl implements MessageService {
         return msg;
     }
 
-    private void getHome(String url, MergeImage image) throws Exception {
+    private void getHome(String username, MergeImage image) throws Exception {
+        String homeUrl = "https://wotapp.ouj.com/index.php?r=wx/home&pn=" + username;
         //设置截图范围
-        homePage.goTo(url);
+        homePage.goTo(homeUrl);
         ScreenshotOptions screenshotOptions = new ScreenshotOptions();
         Clip clip = new Clip(1.0, 1.56, 480, 1384);
         screenshotOptions.setClip(clip);
@@ -76,8 +77,9 @@ public class MessageServiceImpl implements MessageService {
         image.setLeftImage(screenshot);
     }
 
-    private void getLastFight(String url, MergeImage image) throws Exception {
-        Document document = Jsoup.connect(url).get();
+    private void getLastFight(String username, MergeImage image) throws Exception {
+        String homeUrl = "https://wotapp.ouj.com/index.php?r=wx/home&pn=" + username;
+        Document document = Jsoup.connect(homeUrl).get();
         Elements elementsByClass = document.getElementsByClass("record-item");
         if (!CollectionUtils.isEmpty(elementsByClass)) {
             Element element = elementsByClass.get(0);
@@ -94,10 +96,25 @@ public class MessageServiceImpl implements MessageService {
         } else {
             throw new Exception("最近一次战斗截图出错！");
         }
+        Elements num = document.getElementsByClass("fight-num");
+        if (!CollectionUtils.isEmpty(num)) {
+            String fightNum = num.get(0).text();
+            List<WotUser> byWotName = wotUserService.findByWotName(username);
+            if (!CollectionUtils.isEmpty(byWotName)) {
+                for (int i = 0; i < byWotName.size(); i++) {
+                    WotUser wotUser = byWotName.get(i);
+                    wotUser.setFightNum(Integer.parseInt(fightNum));
+                    wotUserService.save(wotUser);
+                }
+            }
+        } else {
+            throw new Exception("最近一次战斗力！出错");
+        }
     }
 
-    private void getBatlleData(String url, MergeImage image) throws Exception {
-        battleDataPage.goTo(url);
+    private void getBatlleData(String username, MergeImage image) throws Exception {
+        String batlleDataUrl = "https://wotapp.ouj.com/index.php?r=wx/BattleData&pn=" + username;
+        battleDataPage.goTo(batlleDataUrl);
         ScreenshotOptions screenshotOptions = new ScreenshotOptions();
         //设置截图范围
         Clip clipTop = new Clip(1.0, 180, 480, 256);

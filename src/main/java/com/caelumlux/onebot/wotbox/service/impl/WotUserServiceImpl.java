@@ -6,6 +6,8 @@ import com.caelumlux.onebot.wotbox.service.WotUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author Caelumlux
  * @ClassName WotUserServiceImpl
@@ -20,6 +22,11 @@ public class WotUserServiceImpl implements WotUserService {
     @Override
     public WotUser findByUserQq(Long userQq) {
         return wotUserRepository.findByUserQq(userQq);
+    }
+
+    @Override
+    public List<WotUser> findByWotName(String userName) {
+        return wotUserRepository.findByWotName(userName);
     }
 
     @Override

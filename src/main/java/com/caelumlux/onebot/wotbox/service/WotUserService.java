@@ -2,6 +2,8 @@ package com.caelumlux.onebot.wotbox.service;
 
 import com.caelumlux.onebot.wotbox.entity.WotUser;
 
+import java.util.List;
+
 /**
  * @author Caelumlux
  * @ClassName WotUserService
@@ -11,6 +13,8 @@ import com.caelumlux.onebot.wotbox.entity.WotUser;
 public interface WotUserService {
 
     WotUser findByUserQq(Long userQq);
+
+    List<WotUser> findByWotName(String userName);
 
     void save(WotUser wotUser);
 }

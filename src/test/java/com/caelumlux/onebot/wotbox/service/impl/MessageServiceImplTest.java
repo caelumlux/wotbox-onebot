@@ -59,6 +59,14 @@ public class MessageServiceImplTest {
         } else {
             throw new Exception("最近一次战斗截图出错！");
         }
+
+        Elements num = document.getElementsByClass("fight-num");
+        if (!CollectionUtils.isEmpty(num)) {
+            String fightNum = num.get(0).text();
+            System.out.println(fightNum);
+        } else {
+            throw new Exception("最近一次战斗力！出错");
+        }
     }
 
 }
